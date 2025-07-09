@@ -5,7 +5,7 @@
  */
 
 import UIKit
-import NimbleNetiOS
+import DeliteAI
 import SwiftProtobuf
 
 class ViewController: UIViewController {
@@ -18,7 +18,8 @@ class ViewController: UIViewController {
             host: BundleConfig.host,
             deviceId: "hello-ios",
             debug: true,
-            compatibilityTag: "proto-test"
+            compatibilityTag: "proto-test",
+            online: true
         )
         
         let res = NimbleNetApi.initialize(config: config)

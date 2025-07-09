@@ -5,7 +5,7 @@
  */
 
 import XCTest
-import NimbleNetiOS
+import DeliteAI
 import Foundation
 
 class runMethodInstrumentation: XCTestCase {
@@ -17,7 +17,7 @@ class runMethodInstrumentation: XCTestCase {
         
         let context = UIApplication.shared.delegate as! UIApplicationDelegate
  
-        let config = NimbleNetConfig(clientId: "testclient", clientSecret: BundleConfig.clientSecret, host: BundleConfig.host, deviceId: "nimon", debug: true, compatibilityTag: "android-output-verification")
+        let config = NimbleNetConfig(clientId: "testclient", clientSecret: BundleConfig.clientSecret, host: BundleConfig.host, deviceId: "nimon", debug: true, compatibilityTag: "android-output-verification", online: true)
         
         let res = NimbleNetApi.initialize(config: config)
         sleep(2)
