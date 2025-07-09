@@ -6,11 +6,7 @@
 
 package dev.deliteai.agents.gmail.impl
 
-import android.app.Application
-
-internal class DependencyContainer private constructor(
-    private val application: Application
-) {
+internal class DependencyContainer private constructor() {
     private val llmManagerSingleton = LlmManager()
     private val gmailSdkHelperSingleton = GmailSdkHelper.getInstance()
     fun getLlmManager(): LlmManager = llmManagerSingleton
@@ -21,11 +17,9 @@ internal class DependencyContainer private constructor(
         private var instance: DependencyContainer? = null
 
         @Synchronized
-        fun getInstance(
-            application: Application
-        ): DependencyContainer {
+        fun getInstance(): DependencyContainer {
             if (instance == null) {
-                instance = DependencyContainer(application)
+                instance = DependencyContainer()
             }
             return instance!!
         }
