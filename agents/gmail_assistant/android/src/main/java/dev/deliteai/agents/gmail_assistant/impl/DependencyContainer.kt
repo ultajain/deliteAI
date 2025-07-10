@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.deliteai.agents.gmail.impl
+package dev.deliteai.agents.gmail_assistant.impl
 
 internal class DependencyContainer private constructor() {
     private val llmManagerSingleton = LlmManager()

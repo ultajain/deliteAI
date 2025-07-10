@@ -81,7 +81,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(project(":notifications_summarizer"))
-    implementation(project(":gmail"))
+    implementation(project(":gmail_assistant"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

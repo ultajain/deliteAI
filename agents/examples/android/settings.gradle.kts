@@ -28,7 +28,7 @@ dependencyResolutionManagement {
 rootProject.name = "Examples"
 include(":app")
 include(":notifications_summarizer")
-include(":gmail")
+include(":gmail_assistant")
 
 project(":notifications_summarizer").projectDir = file("../../notifications_summarizer/android")
-project(":gmail").projectDir = file("../../gmail/android")
+project(":gmail_assistant").projectDir = file("../../gmail_assistant/android")

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.deliteai.agents.gmail.impl.common
+package dev.deliteai.agents.gmail_assistant.impl.common
 
 object Constants {
     const val TAG = "GMAIL-AGENT"

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.deliteai.examples.gmail
+package dev.deliteai.examples.gmail_assistant
 
 import android.accounts.AccountManager
 import android.app.Application
@@ -42,8 +42,8 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException
 import com.google.api.services.gmail.GmailScopes
 import dev.deliteai.NimbleNet
-import dev.deliteai.agents.gmail.GmailAgent
-import dev.deliteai.agents.gmail.dataModels.GmailSummary
+import dev.deliteai.agents.gmail_assistant.GmailAgent
+import dev.deliteai.agents.gmail_assistant.dataModels.GmailSummary
 import dev.deliteai.datamodels.NimbleNetConfig
 import dev.deliteai.impl.common.NIMBLENET_VARIANTS
 import kotlinx.coroutines.Dispatchers

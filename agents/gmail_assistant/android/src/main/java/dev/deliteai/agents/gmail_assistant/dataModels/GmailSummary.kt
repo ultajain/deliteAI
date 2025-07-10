@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.deliteai.agents.gmail.dataModels
+package dev.deliteai.agents.gmail_assistant.dataModels
 
 data class GmailSummary(
     val summary: String

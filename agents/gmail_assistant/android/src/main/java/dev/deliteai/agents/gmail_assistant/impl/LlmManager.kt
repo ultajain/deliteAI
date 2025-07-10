@@ -4,15 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.deliteai.agents.gmail.impl
+package dev.deliteai.agents.gmail_assistant.impl
 
 import dev.deliteai.NimbleNet
 import dev.deliteai.datamodels.NimbleNetTensor
 import dev.deliteai.impl.common.DATATYPE
 import org.json.JSONArray
 import org.json.JSONObject
-import dev.deliteai.agents.gmail.dataModels.Email
-import dev.deliteai.agents.gmail.dataModels.GmailSummary
+import dev.deliteai.agents.gmail_assistant.dataModels.Email
+import dev.deliteai.agents.gmail_assistant.dataModels.GmailSummary
 
 class LlmManager {
     suspend fun summarizeEmails(emails: List<Email>): GmailSummary {

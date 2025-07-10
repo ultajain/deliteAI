@@ -4,18 +4,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.deliteai.agents.gmail
+package dev.deliteai.agents.gmail_assistant
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
-import dev.deliteai.agents.gmail.dataModels.GmailSummary
-import dev.deliteai.agents.gmail.impl.Controller
-import dev.deliteai.agents.gmail.impl.DependencyContainer
+import dev.deliteai.agents.gmail_assistant.dataModels.GmailSummary
+import dev.deliteai.agents.gmail_assistant.impl.Controller
+import dev.deliteai.agents.gmail_assistant.impl.DependencyContainer
 import java.util.concurrent.atomic.AtomicBoolean
 import dev.deliteai.datamodels.NimbleNetResult
 import dev.deliteai.datamodels.NimbleNetError
 import android.util.Log
 import dev.deliteai.NimbleNet
-import dev.deliteai.agents.gmail.impl.common.Constants
+import dev.deliteai.agents.gmail_assistant.impl.common.Constants
 import kotlinx.coroutines.delay
 
 object GmailAgent {

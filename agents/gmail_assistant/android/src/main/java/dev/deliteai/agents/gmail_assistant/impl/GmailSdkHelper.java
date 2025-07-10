@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.deliteai.agents.gmail.impl;
+package dev.deliteai.agents.gmail_assistant.impl;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-import dev.deliteai.agents.gmail.dataModels.Email;
-import dev.deliteai.agents.gmail.impl.common.Constants;
+import dev.deliteai.agents.gmail_assistant.dataModels.Email;
+import dev.deliteai.agents.gmail_assistant.impl.common.Constants;
 
 public class GmailSdkHelper {
 
