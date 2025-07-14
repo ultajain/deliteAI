@@ -55,6 +55,9 @@ jobs:
           cores: 4
           script: echo "Generated AVD snapshot for caching."
 
+      - name: Download external dependencies
+        run: ./setup.sh --sdk android
+
       - name: Run tests
         timeout-minutes: 60
         uses: reactivecircus/android-emulator-runner@v2
