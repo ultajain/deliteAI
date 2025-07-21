@@ -22,7 +22,7 @@ jobs:
       - name: Validate TEST_SECRET
         run: |
           if [ "${{ secrets.TEST_SECRET }}" != "dummy" ]; then
-            echo "Secret TEST_SECRET does not match expected value!"
+            echo "Secret TEST_SECRET does not match expected value"
             exit 1
           else
             echo "Secret TEST_SECRET validated successfully."
