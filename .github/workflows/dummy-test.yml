@@ -1,0 +1,29 @@
+name: Dummy Integration Test
+
+on:
+  pull_request_target:
+    types: [labeled, synchronize]
+
+jobs:
+  validate-secret:
+    if: contains(github.event.pull_request.labels.*.name, 'ready-for-test')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Validate TEST_SECRET
+        run: |
+          if [ "${{ secrets.TEST_SECRET }}" != "dummy" ]; then
+            echo "Secret TEST_SECRET does not match expected value!"
+            exit 1
+          else
+            echo "Secret TEST_SECRET validated successfully."
+          fi
