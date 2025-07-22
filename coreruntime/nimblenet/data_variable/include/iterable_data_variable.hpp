@@ -21,13 +21,29 @@ class IterableDataVariable : public DataVariable {
   bool _iterExhausted = false; /**< Flag indicating if iteration has been exhausted */
 
  public:
-  // Reset the iterator to start from the beginning
+
+  /**
+   * @brief Indicates whether the variable is iterable
+   * 
+   * @return Always returns true
+   */
+  bool is_iterable() const override { return true; }
+
+  /**
+   * @brief Resets the iterator to start from the beginning
+   */
   virtual void reset_iterator() {
     _iterPosition = 0;
     _iterExhausted = false;
   }
 
-  // Get the next value in the iteration, or throw StopIteration
+  /**
+   * @brief Retrieves the next value in the iteration
+   * 
+   * @param stack The current execution call stack
+   * @return The next element in the sequence
+   * @throws StopIteration if the iterator is exhausted
+   */
   virtual OpReturnType next(CallStack& stack) override {
     if (_iterExhausted || _iterPosition >= get_size()) {
       _iterExhausted = true;
@@ -36,7 +52,11 @@ class IterableDataVariable : public DataVariable {
     return get_int_subscript(_iterPosition++);
   }
 
-  // Check if the iterator is exhausted
+  /**
+   * @brief Checks if the iterator is exhausted
+   * 
+   * @return True if iteration is complete, false otherwise
+   */
   bool is_exhausted() const { return _iterExhausted; }
 };
 
