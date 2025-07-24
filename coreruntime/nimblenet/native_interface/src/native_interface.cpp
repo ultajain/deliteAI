@@ -404,4 +404,9 @@ void create_symlink(const fs::path& target, const std::string& link) {
     THROW("Could not create symlink from %s to %s", targetStr.c_str(), link.c_str());
   }
 }
+
+nlohmann::json get_hardware_info() {
+  const char* hardwareInfoStr = ::get_hardware_info();
+  return nlohmann::json::parse(hardwareInfoStr);
+}
 }  // namespace nativeinterface

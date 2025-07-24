@@ -109,6 +109,10 @@ def zeros(shape: list[int], dtype: str) -> Tensor:
 
   OpReturnType list_compatible_llms(const std::vector<OpReturnType>& arguments);
 
+  OpReturnType get_hardware_info(const std::vector<OpReturnType>& arguments, CallStack& stack);
+
+  OpReturnType set_xnnpack_num_threads(const std::vector<OpReturnType>& arguments, CallStack& stack);
+
   OpReturnType create_concurrent_executor(const std::vector<OpReturnType>& arguments);
 
   OpReturnType set_threads(const std::vector<OpReturnType>& arguments);

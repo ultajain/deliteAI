@@ -14,6 +14,8 @@
 Ort::Env TaskONNXModel::_myEnv =
     Ort::Env(OrtLoggingLevel::ORT_LOGGING_LEVEL_FATAL, "ONNX  Inference Environment");
 
+std::string TaskONNXModel::_xnnpackIntraOpNumThreads = "6";
+
 int TaskONNXModel::create_input_tensor_and_set_data_ptr(const OpReturnType req, int modelInputIndex,
                                                         Ort::Value&& returnedInputTensor) {
   try {
@@ -162,8 +164,9 @@ int ORT_API_CALL GetActiveOrtAPIVersion();
 #endif  // __cplusplus
 #endif  // ORT_EXTENSIONS
 
-void add_common_session_options(Ort::SessionOptions& sessionOptions) {
+void TaskONNXModel::add_common_session_options(Ort::SessionOptions& sessionOptions) {
   sessionOptions.AddConfigEntry("session.use_ort_model_bytes_directly", "1");
+  sessionOptions.AppendExecutionProvider("XNNPACK", {std::pair<std::string, std::string>("intra_op_num_threads",  _xnnpackIntraOpNumThreads.c_str())});
 #ifdef ORT_EXTENSIONS
   Ort::ThrowOnError(RegisterCustomOps((OrtSessionOptions*)sessionOptions, OrtGetApiBase()));
 #endif  // ORT_EXTENSIONS
