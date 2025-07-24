@@ -251,11 +251,11 @@ DELITEPY_DOC_BLOCK_END
   static OpReturnType pre_add_event_hook(const std::vector<OpReturnType>& typesDataVariable,
                                          CallStack& stack);
 
-/*
-DELITEPY_DOC_BLOCK_BEGIN
+  /*
+  DELITEPY_DOC_BLOCK_BEGIN
 - `next()` function
-DELITEPY_DOC_BLOCK_END
-*/
+  DELITEPY_DOC_BLOCK_END
+  */
   /**
    * @brief Returns the next item from an iterable
    *
@@ -265,19 +265,19 @@ DELITEPY_DOC_BLOCK_END
    */
   static OpReturnType next(const std::vector<OpReturnType>& args, CallStack& stack);
 
-/*
-DELITEPY_DOC_BLOCK_BEGIN
+  /*
+  DELITEPY_DOC_BLOCK_BEGIN
 - `enumerate()` function
-DELITEPY_DOC_BLOCK_END
-*/
+  DELITEPY_DOC_BLOCK_END
+  */
   /**
    * @brief Returns an enumerate object over an iterable
    *
-   * Wraps the given iterable with an index counter, returning (index, value) pairs.
+   * Wraps the given iterable with an index counter, yielding (index, value) pairs.
    *
    * @param args Vector containing one iterable object
    * @param stack Current call stack
-   * @return Iterable object yielding pairs of (index, value)
+   * @return Iterable object yielding (index, value) pairs
    */
   static OpReturnType enumerate(const std::vector<OpReturnType>& args, CallStack& stack);
 };

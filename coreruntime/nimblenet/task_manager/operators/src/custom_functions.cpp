@@ -6,9 +6,9 @@
 
 #include "custom_functions.hpp"
 
+#include "enumerate_data_variable.hpp"
 #include "exception_data_variable.hpp"
 #include "statements.hpp"
-#include "enumerate_data_variable.hpp"
 
 std::map<std::string, CustomFuncPtr> CustomFunctions::_customFuncMap = {
     {"print", CustomFunctions::print},
@@ -98,6 +98,7 @@ OpReturnType CustomFunctions::add_event(const std::vector<OpReturnType>& rawStor
 
 OpReturnType CustomFunctions::next(const std::vector<OpReturnType>& args, CallStack& stack) {
   THROW_ARGUMENTS_MISMATCH_FUNCTION_NAME(args.size(), 1, "next");
+
   if (args[0]->is_iterable()) {
     try {
       return args[0]->next(stack);
@@ -113,8 +114,8 @@ OpReturnType CustomFunctions::enumerate(const std::vector<OpReturnType>& args, C
   THROW_OPTIONAL_ARGUMENTS_NOT_MATCH_FUNCTION_NAME(args.size(), 1, 2, "enumerate");
 
   OpReturnType iterable = args[0];
-  int startIndex = 0;
 
+  int startIndex = 0;
   if (args.size() == 2) {
     startIndex = args[1]->get_int32();
   }

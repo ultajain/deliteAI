@@ -5,9 +5,12 @@
  */
 
 #include "enumerate_data_variable.hpp"
-#include "single_variable.hpp"
+
 #include <stdexcept>
 #include <string>
+
+#include "single_variable.hpp"
+#include "tuple_data_variable.hpp"
 
 EnumerateDataVariable::EnumerateDataVariable(OpReturnType iterable, int startIndex)
     : _iterable(iterable), _startIndex(startIndex) {
@@ -33,8 +36,7 @@ OpReturnType EnumerateDataVariable::get_int_subscript(int index) {
 }
 
 void EnumerateDataVariable::reset_iterator() {
-  _iterPosition = 0;
-  _iterExhausted = false;
+  IterableDataVariable::reset_iterator();
   if (_iterable->is_iterable()) {
     static_cast<IterableDataVariable*>(_iterable.get())->reset_iterator();
   }

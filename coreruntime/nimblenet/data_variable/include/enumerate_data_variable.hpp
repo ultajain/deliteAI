@@ -6,9 +6,8 @@
 
 #pragma once
 
-#include "iterable_data_variable.hpp"
 #include "data_variable.hpp"
-#include "tuple_data_variable.hpp"
+#include "iterable_data_variable.hpp"
 
 /**
  * @brief DataVariable that yields index-value pairs for iterables

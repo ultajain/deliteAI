@@ -5,6 +5,7 @@
  */
 
 #pragma once
+
 #include "data_variable.hpp"
 
 /**
@@ -21,10 +22,9 @@ class IterableDataVariable : public DataVariable {
   bool _iterExhausted = false; /**< Flag indicating if iteration has been exhausted */
 
  public:
-
   /**
    * @brief Indicates whether the variable is iterable
-   * 
+   *
    * @return Always returns true
    */
   bool is_iterable() const override { return true; }
@@ -39,9 +39,9 @@ class IterableDataVariable : public DataVariable {
 
   /**
    * @brief Retrieves the next value in the iteration
-   * 
+   *
    * @param stack The current execution call stack
-   * @return The next element in the sequence
+   * @return The next element in the iteration
    * @throws StopIteration if the iterator is exhausted
    */
   virtual OpReturnType next(CallStack& stack) override {
@@ -54,8 +54,8 @@ class IterableDataVariable : public DataVariable {
 
   /**
    * @brief Checks if the iterator is exhausted
-   * 
-   * @return True if iteration is complete, false otherwise
+   *
+   * @return true if iteration is complete, false otherwise
    */
   bool is_exhausted() const { return _iterExhausted; }
 };
