@@ -132,5 +132,8 @@ enum MemberFuncType {
   LIST_COMPATIBLE_LLMS,
   GET_HARDWARE_INFO,
   SET_XNNPACK_NUM_THREADS,
+#ifdef IOS
+  CONVERT_TEXT_TO_PHONEMES,
+#endif  // IOS
   LASTTYPE,  // should be last
 };

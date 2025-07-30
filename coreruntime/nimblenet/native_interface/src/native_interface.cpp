@@ -416,4 +416,8 @@ nlohmann::json get_hardware_info() {
   return hardware_info_json;
 }
 
+#ifdef IOS
+const char* get_phonemes(const char* text) { return ::get_phonemes(text); }
+#endif  // IOS
+
 }  // namespace nativeinterface

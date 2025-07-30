@@ -242,4 +242,8 @@ bool schedule_logs_upload(long repeatIntervalInMinutes, long retryIntervalInMinu
  */
 nlohmann::json get_hardware_info();
 
+#ifdef IOS
+const char* get_phonemes(const char* text);
+#endif  // IOS
+
 }  // namespace nativeinterface
