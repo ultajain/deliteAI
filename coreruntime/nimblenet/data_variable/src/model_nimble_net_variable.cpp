@@ -9,6 +9,14 @@
 #include "asset_load_job.hpp"
 #include "task_onnx_model.hpp"
 
+void ModelNimbleNetVariable::set_xnnpack_intra_op_num_threads(int num_threads) {
+#ifdef ONNX_EXECUTOR
+  TaskONNXModel::set_xnnpack_intra_op_num_threads(num_threads);
+  return;
+#endif  // ONNX_EXECUTOR
+  THROW("set_xnnpack_intra_op_num_threads not supported");
+}
+
 std::shared_ptr<FutureDataVariable> ModelNimbleNetVariable::load_async(
     const std::string& modelName, CommandCenter* commandCenter) {
   const auto deployment = commandCenter->get_deployment();
@@ -47,12 +55,4 @@ OpReturnType ModelNimbleNetVariable::run_model(const std::vector<OpReturnType>& 
           "Error occured while trying to get inference in run_model function from codeBlocks.");
   }
   return output;
-}
-
-void ModelNimbleNetVariable::set_xnnpack_intra_op_num_threads(int numThreads) {
-#ifdef ONNX_EXECUTOR
-  TaskONNXModel::set_xnnpack_intra_op_num_threads(numThreads);
-  return;
-#endif  // ONNX_EXECUTOR
-  THROW("set_xnnpack_intra_op_num_threads not supported");
 }

@@ -253,14 +253,18 @@ OpReturnType NimbleNetDataVariable::create_retriever(const std::vector<OpReturnT
 #endif  // GENAI
 }
 
-OpReturnType NimbleNetDataVariable::get_hardware_info(const std::vector<OpReturnType>& arguments, CallStack& stack) {
+OpReturnType NimbleNetDataVariable::get_hardware_info(const std::vector<OpReturnType>& arguments,
+                                                      CallStack& stack) {
   THROW_ARGUMENTS_NOT_MATCH(arguments.size(), 0, MemberFuncType::GET_HARDWARE_INFO);
+
   nlohmann::json j = nativeinterface::get_hardware_info();
   return DataVariable::get_map_from_json_object(std::move(j));
 }
 
-OpReturnType NimbleNetDataVariable::set_xnnpack_num_threads(const std::vector<OpReturnType>& arguments, CallStack& stack) {
+OpReturnType NimbleNetDataVariable::set_xnnpack_num_threads(
+    const std::vector<OpReturnType>& arguments, CallStack& stack) {
   THROW_ARGUMENTS_NOT_MATCH(arguments.size(), 1, MemberFuncType::SET_XNNPACK_NUM_THREADS);
+
   ModelNimbleNetVariable::set_xnnpack_intra_op_num_threads(arguments[0]->get_int32());
   return std::make_shared<NoneVariable>();
 }

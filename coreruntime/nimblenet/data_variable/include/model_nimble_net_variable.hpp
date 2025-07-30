@@ -112,6 +112,15 @@ class ModelNimbleNetVariable final : public DataVariable {
   nlohmann::json to_json() const override { return "[Model]"; }
 
  public:
+  /**
+   * @brief Sets the number of intra-op threads for XNNPACK
+   *
+   * Only supported for ONNX models. Throws if not supported.
+   *
+   * @param num_threads Number of threads to use
+   */
+  static void set_xnnpack_intra_op_num_threads(int num_threads);
+
   /*
   DELITEPY_DOC_BLOCK_BEGIN
 
@@ -146,15 +155,6 @@ class ModelNimbleNetVariable final : public DataVariable {
    */
   static std::shared_ptr<FutureDataVariable> load_async(const std::string& modelName,
                                                         CommandCenter* commandCenter);
-                                                  
-  /**
-   * @brief Sets the number of intra-op threads for XNNPACK
-   *
-   * Only supported for ONNX models. Throws if not supported.
-   *
-   * @param numThreads Number of threads to use
-   */
-  static void set_xnnpack_intra_op_num_threads(int numThreads);                                    
 
   std::string print() override { return fallback_print(); }
 };

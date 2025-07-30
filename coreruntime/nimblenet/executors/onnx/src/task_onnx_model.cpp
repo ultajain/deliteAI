@@ -11,10 +11,48 @@
 #include "onnx_operators.hpp"
 #include "tensor_data_variable.hpp"
 
-Ort::Env TaskONNXModel::_myEnv =
-    Ort::Env(OrtLoggingLevel::ORT_LOGGING_LEVEL_FATAL, "ONNX  Inference Environment");
+#ifdef ORT_EXTENSIONS
+#ifdef __cplusplus
+extern "C" {
+#endif  // __cplusplus
 
-std::string TaskONNXModel::_xnnpackIntraOpNumThreads = "6";
+OrtStatus* ORT_API_CALL RegisterCustomOps(OrtSessionOptions* options, const OrtApiBase* api);
+
+int ORT_API_CALL GetActiveOrtAPIVersion();
+
+#ifdef __cplusplus
+}
+#endif  // __cplusplus
+#endif  // ORT_EXTENSIONS
+
+// =================================================================================================
+
+namespace {
+
+// Number of threads for the XNNPACK backend
+int xnnpack_intra_op_num_threads = 6;
+
+/**
+ * @brief Configures common ONNX session options.
+ *
+ * @param sessionOptions Session options to configure.
+ */
+void add_common_session_options(Ort::SessionOptions& sessionOptions) {
+  sessionOptions.AddConfigEntry("session.use_ort_model_bytes_directly", "1");
+  sessionOptions.AppendExecutionProvider(
+      "XNNPACK", {std::pair<std::string, std::string>(
+                     "intra_op_num_threads", ne::fmt("%d", xnnpack_intra_op_num_threads).str)});
+#ifdef ORT_EXTENSIONS
+  Ort::ThrowOnError(RegisterCustomOps((OrtSessionOptions*)sessionOptions, OrtGetApiBase()));
+#endif  // ORT_EXTENSIONS
+}
+
+}  // namespace
+
+// =================================================================================================
+
+Ort::Env TaskONNXModel::_myEnv =
+    Ort::Env(OrtLoggingLevel::ORT_LOGGING_LEVEL_FATAL, "ONNX Inference Environment");
 
 int TaskONNXModel::create_input_tensor_and_set_data_ptr(const OpReturnType req, int modelInputIndex,
                                                         Ort::Value&& returnedInputTensor) {
@@ -150,28 +188,6 @@ Ort::SessionOptions TaskONNXModel::get_session_options_from_json(const nlohmann:
   return sessionOptions;
 }
 
-#ifdef ORT_EXTENSIONS
-#ifdef __cplusplus
-extern "C" {
-#endif  // __cplusplus
-
-OrtStatus* ORT_API_CALL RegisterCustomOps(OrtSessionOptions* options, const OrtApiBase* api);
-
-int ORT_API_CALL GetActiveOrtAPIVersion();
-
-#ifdef __cplusplus
-}
-#endif  // __cplusplus
-#endif  // ORT_EXTENSIONS
-
-void TaskONNXModel::add_common_session_options(Ort::SessionOptions& sessionOptions) {
-  sessionOptions.AddConfigEntry("session.use_ort_model_bytes_directly", "1");
-  sessionOptions.AppendExecutionProvider("XNNPACK", {std::pair<std::string, std::string>("intra_op_num_threads",  _xnnpackIntraOpNumThreads.c_str())});
-#ifdef ORT_EXTENSIONS
-  Ort::ThrowOnError(RegisterCustomOps((OrtSessionOptions*)sessionOptions, OrtGetApiBase()));
-#endif  // ORT_EXTENSIONS
-}
-
 void TaskONNXModel::load_model_from_buffer() {
   Ort::CustomOpDomain deliteai_operator_domain{"dev.deliteai"};
   register_custom_onnx_operators(deliteai_operator_domain);
@@ -250,6 +266,10 @@ void TaskONNXModel::load_model_meta_data() {
     outputName[nameSize] = 0;
     _outputNames.push_back(outputName);
   }
+}
+
+void TaskONNXModel::set_xnnpack_intra_op_num_threads(int num_threads) {
+  xnnpack_intra_op_num_threads = num_threads;
 }
 
 TaskONNXModel::TaskONNXModel(const std::string& plan, const std::string& version,

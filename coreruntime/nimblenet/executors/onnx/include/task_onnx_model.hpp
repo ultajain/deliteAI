@@ -17,15 +17,14 @@
  */
 class TaskONNXModel : public TaskBaseModel {
  private:
-  OrtAllocator* _allocator = nullptr;           /**< Allocator used by ONNX Runtime */
-  Ort::SessionOptions _sessionOptions;          /**< Options to configure ONNX session */
-  Ort::MemoryInfo _memoryInfo;                  /**< Memory info for tensor allocations */
-  static Ort::Env _myEnv;                       /**< Static environment shared by all sessions */
-  static Ort::ThreadingOptions tp;              /**< Threading configuration */
-  Ort::Session* _session = nullptr;             /**< ONNX session handle */
-  std::vector<const char*> _inputNames;         /**< Cached input names */
-  std::vector<const char*> _outputNames;        /**< Cached output names */
-  static std::string _xnnpackIntraOpNumThreads; /**< Number of threads for XNNPACK backend */
+  OrtAllocator* _allocator = nullptr;    /**< Allocator used by ONNX Runtime */
+  Ort::SessionOptions _sessionOptions;   /**< Options to configure ONNX session */
+  Ort::MemoryInfo _memoryInfo;           /**< Memory info for tensor allocations */
+  static Ort::Env _myEnv;                /**< Static environment shared by all sessions */
+  static Ort::ThreadingOptions tp;       /**< Threading configuration */
+  Ort::Session* _session = nullptr;      /**< ONNX session handle */
+  std::vector<const char*> _inputNames;  /**< Cached input names */
+  std::vector<const char*> _outputNames; /**< Cached output names */
 
   /**
    * @brief Loads model metadata such as input/output names.
@@ -93,14 +92,14 @@ class TaskONNXModel : public TaskBaseModel {
    */
   static OpReturnType get_tensor_variable_from_onnx_tensor(Ort::Value onnx_tensor);
 
-  /**
-   * @brief Configures common ONNX session options.
-   *
-   * @param sessionOptions Session options to configure.
-   */
-  void add_common_session_options(Ort::SessionOptions& sessionOptions);
-
  public:
+  /**
+   * @brief Sets the number of intra-op threads for the XNNPACK backend.
+   *
+   * @param num_threads Number of threads to use for intra-op parallelism
+   */
+  static void set_xnnpack_intra_op_num_threads(int num_threads);
+
   /**
    * @brief Constructs a TaskONNXModel instance.
    *
@@ -125,15 +124,6 @@ class TaskONNXModel : public TaskBaseModel {
    * @brief Returns output tensor names from the ONNX model.
    */
   std::vector<const char*> get_output_names() override { return _outputNames; }
-
-  /**
-   * @brief Sets the number of intra-op threads for XNNPACK backend.
-   *
-   * @param numThreads Number of threads to use for intra-op parallelism
-   */
-  static void set_xnnpack_intra_op_num_threads(int numThreads) {
-      _xnnpackIntraOpNumThreads = ne::fmt("%d", numThreads).str;
-  }
 
   /**
    * @brief Destructor for TaskONNXModel. Cleans up session.
